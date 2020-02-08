@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Get a reference to the mongoose Schema constructor
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
@@ -8,26 +9,22 @@ const ArticleSchema = new Schema({
     unique: true,
     required: true
   },
+  summary: {
+    type: String,
+    unique: true
+  },
   link: {
     type: String,
+    unique: true,
     required: true
   },
-  text: {
-    type: String,
-    required: true
-  },
-  saved: {
-    type: Boolean,
-    default: false
-  },
-  notes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Note"
-    }
-  ]
+  note: {
+    type: Schema.Types.ObjectId,
+    ref: "Note"
+  }
 });
 
+// Creates Article model from the above schema
 const Article = mongoose.model("Article", ArticleSchema);
 
 module.exports = Article;
