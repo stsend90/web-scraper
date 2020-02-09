@@ -1,7 +1,6 @@
 $(document).on("click", ".save", function() {
 
   const thisId = $(this).attr("id");
-
   $.ajax({
     method: "PUT",
     url: "/api/articles/" + thisId,
@@ -75,7 +74,7 @@ function createCard(data) {
 
       let theBody = $("<p>")
         .addClass("card-text")
-        .html(data[i].blurb ? `${data[i].blurb}` : `<p>Sorry - No Summary Available</p> `)
+        .html(data[i].blurb ? `${data[i].blurb}` : `<p>Sorry! No Summary Available</p> `)
 
       const saveBtn = $("<button>")
         .attr("id", data[i]._id)
