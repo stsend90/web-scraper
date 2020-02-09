@@ -11,7 +11,10 @@ $(document).on("click", ".save", function() {
   })
     .then(function(data) {
       console.log(data);
-    });
+    })
+    .catch(function(err){
+      console.log(err)
+    })
 });
 
 $(document).on("click", ".read", function() {
@@ -28,7 +31,10 @@ $(document).on("click", ".note", function() {
   })
     .then(function(data) {
       createModal(data)
-    });
+    })
+    .catch(function(err){
+      console.log(err)
+    })
 });
 
 $(document).on("click", ".submitNote", function() {
@@ -50,7 +56,10 @@ $(document).on("click", ".submitNote", function() {
       $("#notes").hide()
       $(".noteTitle").val("")
       $(".articleNote").val("")
-    });
+    })
+    .catch(function(err){
+      console.log(err)
+    })
 
 });
 
