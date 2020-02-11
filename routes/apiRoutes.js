@@ -83,9 +83,10 @@ module.exports = function(app) {
         res.json(err);
       });
   });
-
+  
   app.post("/api/articles/:id", function(req, res) {
     db.note.create(req.body)
+    console.log(req.body)
       .then(function(dbNote) {
         return db.article.findOneAndUpdate(
           { _id: req.params.id },
