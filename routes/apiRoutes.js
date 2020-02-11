@@ -7,6 +7,7 @@ module.exports = function(app) {
   app.get("/api/scrape", function(req, res) {
     axios.get("https://pokemongohub.net/").then(function(response) {
       const $ = cheerio.load(response.data);
+      console.log(response.data)
 
       $("div.item-details").each(function(i, element) {
         let result = {};
@@ -28,8 +29,8 @@ module.exports = function(app) {
           .attr("href");
 
         db.article.create(result)
-          .then(function(dbarticle) {
-            console.log(dbarticle);
+          .then(function(dbArticle) {
+            console.log(dbArticle);
           })
           .catch(function(err) {
             console.log(err);
@@ -40,8 +41,8 @@ module.exports = function(app) {
 
   app.get("/api/articles", function(req, res) {
     db.article.find({})
-      .then(function(dbarticle) {
-        res.json(dbarticle);
+      .then(function(dbArticle) {
+        res.json(dbArticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -63,8 +64,8 @@ module.exports = function(app) {
     }
 
     db.article.update({ _id: req.params.id }, { $set: { saved: saved } })
-      .then(function(dbarticle) {
-        res.json(dbarticle);
+      .then(function(dbArticle) {
+        res.json(dbArticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -76,8 +77,8 @@ module.exports = function(app) {
     console.log(req.params.id);
     db.article.findOne({ _id: req.params.id })
       .populate("note")
-      .then(function(dbarticle) {
-        res.json(dbarticle);
+      .then(function(dbArticle) {
+        res.json(dbArticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -86,7 +87,6 @@ module.exports = function(app) {
 
   app.post("/api/articles/:id", function(req, res) {
     db.note.create(req.body)
-    console.log(req.body)
       .then(function(dbNote) {
         return db.article.findOneAndUpdate(
           { _id: req.params.id },
@@ -94,8 +94,8 @@ module.exports = function(app) {
           { new: true }
         );
       })
-      .then(function(dbarticle) {
-        res.json(dbarticle);
+      .then(function(dbArticle) {
+        res.json(dbArticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -104,8 +104,8 @@ module.exports = function(app) {
 
   app.get("/api/saved", function(req, res) {
     db.article.find({ saved: true})
-      .then(function(dbarticle) {
-        res.json(dbarticle);
+      .then(function(dbArticle) {
+        res.json(dbArticle);
       })
       .catch(function(err) {
         res.json(err);
