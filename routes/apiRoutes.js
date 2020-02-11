@@ -36,7 +36,6 @@ module.exports = function(app) {
             console.log(err);
           });
       });
-      res.send(dbArticle)
     })
     .catch(function(err){
       console.log(err);
