@@ -28,8 +28,8 @@ module.exports = function(app) {
           .attr("href");
 
         db.article.create(result)
-          .then(function(dbArticle) {
-            console.log(dbArticle);
+          .then(function(dbarticle) {
+            console.log(dbarticle);
           })
           .catch(function(err) {
             console.log(err);
@@ -40,8 +40,8 @@ module.exports = function(app) {
 
   app.get("/api/articles", function(req, res) {
     db.article.find({})
-      .then(function(dbArticle) {
-        res.json(dbArticle);
+      .then(function(dbarticle) {
+        res.json(dbarticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -63,8 +63,8 @@ module.exports = function(app) {
     }
 
     db.article.update({ _id: req.params.id }, { $set: { saved: saved } })
-      .then(function(dbArticle) {
-        res.json(dbArticle);
+      .then(function(dbarticle) {
+        res.json(dbarticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -76,14 +76,14 @@ module.exports = function(app) {
     console.log(req.params.id);
     db.article.findOne({ _id: req.params.id })
       .populate("note")
-      .then(function(dbArticle) {
-        res.json(dbArticle);
+      .then(function(dbarticle) {
+        res.json(dbarticle);
       })
       .catch(function(err) {
         res.json(err);
       });
   });
-  
+
   app.post("/api/articles/:id", function(req, res) {
     db.note.create(req.body)
     console.log(req.body)
@@ -94,8 +94,8 @@ module.exports = function(app) {
           { new: true }
         );
       })
-      .then(function(dbArticle) {
-        res.json(dbArticle);
+      .then(function(dbarticle) {
+        res.json(dbarticle);
       })
       .catch(function(err) {
         res.json(err);
@@ -104,8 +104,8 @@ module.exports = function(app) {
 
   app.get("/api/saved", function(req, res) {
     db.article.find({ saved: true})
-      .then(function(dbArticle) {
-        res.json(dbArticle);
+      .then(function(dbarticle) {
+        res.json(dbarticle);
       })
       .catch(function(err) {
         res.json(err);
