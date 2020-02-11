@@ -10,7 +10,7 @@ module.exports = function(app) {
       console.log(response.data)
 
       $("div.item-details").each(function(i, element) {
-        let result = {};
+        let result = [];
 
         result.title = $(element)
           .children("h3")
@@ -28,7 +28,7 @@ module.exports = function(app) {
           .find("a")
           .attr("href");
 
-        db.article.create(result)
+        db.Article.create(result)
           .then(function(dbArticle) {
             console.log(dbArticle);
           })
@@ -44,7 +44,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/articles", function(req, res) {
-    db.article.find({})
+    db.Article.find({})
       .then(function(dbArticle) {
         res.json(dbArticle);
       })
@@ -67,7 +67,7 @@ module.exports = function(app) {
         break;
     }
 
-    db.article.update({ _id: req.params.id }, { $set: { saved: saved } })
+    db.Article.update({ _id: req.params.id }, { $set: { saved: saved } })
       .then(function(dbArticle) {
         res.json(dbArticle);
       })
@@ -79,7 +79,7 @@ module.exports = function(app) {
   app.get("/api/articles/:id", function(req, res) {
     console.log("note connected");
     console.log(req.params.id);
-    db.article.findOne({ _id: req.params.id })
+    db.Article.findOne({ _id: req.params.id })
       .populate("note")
       .then(function(dbArticle) {
         res.json(dbArticle);
@@ -92,7 +92,7 @@ module.exports = function(app) {
   app.post("/api/articles/:id", function(req, res) {
     db.note.create(req.body)
       .then(function(dbNote) {
-        return db.article.findOneAndUpdate(
+        return db.Article.findOneAndUpdate(
           { _id: req.params.id },
           { note: dbNote._id },
           { new: true }
@@ -107,7 +107,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/saved", function(req, res) {
-    db.article.find({ saved: true})
+    db.Article.find({ saved: true})
       .then(function(dbArticle) {
         res.json(dbArticle);
       })
