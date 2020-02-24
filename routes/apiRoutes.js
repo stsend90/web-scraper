@@ -7,10 +7,9 @@ module.exports = function(app) {
   app.get("/api/scrape", function(req, res) {
     axios.get("https://pokemongohub.net/").then(function(response) {
       const $ = cheerio.load(response.data);
-      console.log(response.data)
 
       $("div.item-details").each(function(i, element) {
-        let result = [];
+        const result = {};
 
         result.title = $(element)
           .children("h3")
@@ -36,10 +35,6 @@ module.exports = function(app) {
             console.log(err);
           });
       });
-    })
-    .catch(function(err){
-      console.log(err);
-      res.json(err);
     });
   });
 
@@ -90,7 +85,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/articles/:id", function(req, res) {
-    db.note.create(req.body)
+    db.Note.create(req.body)
       .then(function(dbNote) {
         return db.Article.findOneAndUpdate(
           { _id: req.params.id },

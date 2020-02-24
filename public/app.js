@@ -1,6 +1,7 @@
 $(document).on("click", ".save", function() {
 
-  const thisId = $(this).attr("id");
+  let thisId = $(this).attr("id");
+
   $.ajax({
     method: "PUT",
     url: "/api/articles/" + thisId,
@@ -11,10 +12,7 @@ $(document).on("click", ".save", function() {
   })
     .then(function(data) {
       console.log(data);
-    })
-    .catch(function(err){
-      console.log(err)
-    })
+    });
 });
 
 $(document).on("click", ".read", function() {
@@ -22,7 +20,7 @@ $(document).on("click", ".read", function() {
 
 $(document).on("click", ".note", function() {
 
-  const thisId = $(this).attr("id");
+  let thisId = $(this).attr("id");
   $(".submitNote").attr("note-id", thisId)
 
   $.ajax({
@@ -31,17 +29,14 @@ $(document).on("click", ".note", function() {
   })
     .then(function(data) {
       createModal(data)
-    })
-    .catch(function(err){
-      console.log(err)
-    })
+    });
 });
 
 $(document).on("click", ".submitNote", function() {
   event.preventDefault()
   console.log("this works")
 
-  const thisId = $(this).attr("note-id");
+  let thisId = $(this).attr("note-id");
   console.log(thisId)
 
   $.ajax({
@@ -56,10 +51,7 @@ $(document).on("click", ".submitNote", function() {
       $("#notes").hide()
       $(".noteTitle").val("")
       $(".articleNote").val("")
-    })
-    .catch(function(err){
-      console.log(err)
-    })
+    });
 
 });
 
@@ -83,9 +75,9 @@ function createCard(data) {
 
       let theBody = $("<p>")
         .addClass("card-text")
-        .html(data[i].blurb ? `${data[i].blurb}` : `<p>Sorry! No Summary Available</p> `)
+        .html(data[i].blurb ? `${data[i].blurb}` : `<p>Sorry - No Summary Available</p> `)
 
-      const saveBtn = $("<button>")
+      let saveBtn = $("<button>")
         .attr("id", data[i]._id)
         .attr("saved", data[i].saved)
         .addClass("save")
@@ -93,14 +85,14 @@ function createCard(data) {
         .addClass("btn-sm")
         .html(data[i].saved ? " Remove Article " :  " Save Article ")
 
-      const readBtn = $("<button>")
+      let readBtn = $("<button>")
         .addClass("ml-2 mr-2")
         .addClass("read")
         .addClass("btn-sm")
         .addClass("btn btn-warning")
         .html(`<a href="${data[i].link}" target="blank">${"Read More"}</a>`)
 
-      const noteBtn = $("<button>")
+      let noteBtn = $("<button>")
         .attr("id", data[i]._id)
         .addClass("note")
         .addClass("btn btn-warning")
@@ -111,8 +103,7 @@ function createCard(data) {
       let applyRead = $("<td class='align-middle'>").html(readBtn);
       let applyNote = $("<td class='align-middle'>").html(noteBtn);
       
-      thediv.append(divBody, theTitle, theBody, applySave, applyNote, applyRead);
-  
+      thediv.append(divBody, theTitle, theBody, applySave, applyRead, applyNote);
       $(".articles").append(thediv)
       }   
   };
@@ -159,15 +150,15 @@ function createModal(project) {
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           `)
        
-      modalContent.append(modalHeader, modalBody, modalFooter);
-      modalDialog.append(modalContent);
-      modal.append(modalDialog);
-      $("body").append(modal);
+      modalContent.append(modalHeader, modalBody, modalFooter)
+      modalDialog.append(modalContent)
+      modal.append(modalDialog)
+      $("body").append(modal)
 
       if (project.note) {
         $(".noteTitle").val(project.note.title);
         $(".articleNote").val(project.note.body);
       }
 
-      $("#project-modal").modal('show')
-}
+      $("#project-modal").modal("show")
+    }
