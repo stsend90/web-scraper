@@ -1,13 +1,11 @@
-require("dotenv");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-
-const db = require("./models");
-
 const PORT = process.env.PORT || 3000;
 const app = express();
+require("dotenv").config();
+
 
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
