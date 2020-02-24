@@ -1,4 +1,4 @@
-const db = require("../models");
+var db = require("../models");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
@@ -6,15 +6,16 @@ module.exports = function(app) {
   
   app.get("/api/scrape", function(req, res) {
     axios.get("https://pokemongohub.net/").then(function(response) {
-      const $ = cheerio.load(response.data);
+      var $ = cheerio.load(response.data);
+      console.log(response.data);
 
       $("div.item-details").each(function(i, element) {
-        const result = {};
+        var result = {};
 
         result.title = $(element)
           .children("h3")
           .text();
-        result.blurb = $(element)
+        result.text = $(element)
           .children("div.td-excerpt")
           .text()
           .replace(/(?:\r\n|\r|\n)/g, "");

@@ -1,6 +1,6 @@
 $(document).on("click", ".save", function() {
 
-  let thisId = $(this).attr("id");
+  const thisId = $(this).attr("id");
 
   $.ajax({
     method: "PUT",
@@ -20,7 +20,7 @@ $(document).on("click", ".read", function() {
 
 $(document).on("click", ".note", function() {
 
-  let thisId = $(this).attr("id");
+  const thisId = $(this).attr("id");
   $(".submitNote").attr("note-id", thisId)
 
   $.ajax({
@@ -36,7 +36,7 @@ $(document).on("click", ".submitNote", function() {
   event.preventDefault()
   console.log("this works")
 
-  let thisId = $(this).attr("note-id");
+  const thisId = $(this).attr("note-id");
   console.log(thisId)
 
   $.ajax({
@@ -60,24 +60,24 @@ function createCard(data) {
 
   for (let i = 0; i < data.length; i++) {  
 
-      let thediv = $("<div>")
+      const thediv = $("<div>")
         .addClass("card w-100 m-3 p-3")
         .addClass("theCard")
         .addClass("align-top")
         .attr("style", "width: 18rem;")
         .attr("id", "cardBody")
 
-      let divBody = $("<div>").addClass("card-body");
+      const divBody = $("<div>").addClass("card-body");
 
-      let theTitle = $("<p>")
+      const theTitle = $("<p>")
         .addClass("card-text")
         .html(`<h2>${data[i].title}</h2>`)
 
-      let theBody = $("<p>")
+      const theBody = $("<p>")
         .addClass("card-text")
         .html(data[i].blurb ? `${data[i].blurb}` : `<p>Sorry - No Summary Available</p> `)
 
-      let saveBtn = $("<button>")
+      const saveBtn = $("<button>")
         .attr("id", data[i]._id)
         .attr("saved", data[i].saved)
         .addClass("save")
@@ -85,23 +85,23 @@ function createCard(data) {
         .addClass("btn-sm")
         .html(data[i].saved ? " Remove Article " :  " Save Article ")
 
-      let readBtn = $("<button>")
+      const readBtn = $("<button>")
         .addClass("ml-2 mr-2")
         .addClass("read")
         .addClass("btn-sm")
         .addClass("btn btn-warning")
         .html(`<a href="${data[i].link}" target="blank">${"Read More"}</a>`)
 
-      let noteBtn = $("<button>")
+      const noteBtn = $("<button>")
         .attr("id", data[i]._id)
         .addClass("note")
         .addClass("btn btn-warning")
         .addClass("btn-sm")
         .html(" Create Note ")
  
-      let applySave = $("<td class='align-middle'>").html(saveBtn);
-      let applyRead = $("<td class='align-middle'>").html(readBtn);
-      let applyNote = $("<td class='align-middle'>").html(noteBtn);
+      const applySave = $("<td class='align-middle'>").html(saveBtn);
+      const applyRead = $("<td class='align-middle'>").html(readBtn);
+      const applyNote = $("<td class='align-middle'>").html(noteBtn);
       
       thediv.append(divBody, theTitle, theBody, applySave, applyRead, applyNote);
       $(".articles").append(thediv)
@@ -115,28 +115,28 @@ function createModal(project) {
 
   $("#project-modal").remove()
 
-      let modal = $("<div>").addClass("modal fade")
+      const modal = $("<div>").addClass("modal fade")
           .attr("id" , "project-modal")
           .attr("tabindex", "-1")
           .attr("role", "dialog")
           .attr("aria-labelledby", "exampleModalCenterTitle")
           .attr("aria-hidden", "true")
-      let modalDialog = $("<div>").addClass("modal-dialog modal-dialog-centered")
+      const modalDialog = $("<div>").addClass("modal-dialog modal-dialog-centered")
           .attr("role", "document")
-      let modalContent = $("<div>").addClass("modal-content")
-      let modalHeader = $("<div>").addClass("modal-header theModal")
+      const modalContent = $("<div>").addClass("modal-content")
+      const modalHeader = $("<div>").addClass("modal-header theModal")
           .html(`<h5 class="modal-title" id="exampleModalLongTitle">${project.title}</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                       </button>`)
-      let modalBody = $("<div>").addClass("modal-body")
+      const modalBody = $("<div>").addClass("modal-body")
 
-      let modalText = $("<div>").html(`<br>${project.blurb}<br><br>
+      const modalText = $("<div>").html(`<br>${project.blurb}<br><br>
                       Read the full article, <a href="${project.link}" target="blank">click here</a>.<br><br>
                       `)
                       .appendTo(modalBody)
 
-      let modalForm = $("<div>").addClass("form-group")
+      const modalForm = $("<div>").addClass("form-group")
                       .html(`<label>Note Title</label><br>
                       <input class="form-control noteTitle" type="text"><br>
                       <label>Your Thoughts</label><br>
@@ -144,7 +144,7 @@ function createModal(project) {
                       `)
                       .appendTo(modalBody)
                       
-      let modalFooter = $("<div>").addClass("modal-footer theModal")
+      const modalFooter = $("<div>").addClass("modal-footer theModal")
           .html(`
           <button type="button" class="btn btn-secondary submitNote" data-dismiss="modal" note-id=${project._id}>Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -161,4 +161,4 @@ function createModal(project) {
       }
 
       $("#project-modal").modal("show")
-    }
+}

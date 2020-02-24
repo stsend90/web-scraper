@@ -2,7 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const app = express();
 require("dotenv").config();
 
@@ -18,11 +18,12 @@ app.engine("handlebars", exphbs({
 );
 app.set("view engine", "handlebars");
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:heroku_nxztzn6h"
+const MONGODB_URI = process.env.MONGODB_URI;
 const options = {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
+  useUnifiedTopology: true,
   family: 4
 };
 mongoose.connect(MONGODB_URI,options);
