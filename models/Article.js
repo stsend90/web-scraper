@@ -6,8 +6,8 @@ const Articleschema = new Schema({
     type: String,
     required: true
   },
-  text: {
-    type: String,
+  description: {
+    type: String
   },
   link: {
     type: String,
