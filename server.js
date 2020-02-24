@@ -18,9 +18,7 @@ app.engine("handlebars", exphbs({
 );
 app.set("view engine", "handlebars");
 
-
-
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:heroku_0tc4sspl"
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:heroku_nxztzn6h"
 const options = {
   useNewUrlParser: true,
   useCreateIndex: true,
